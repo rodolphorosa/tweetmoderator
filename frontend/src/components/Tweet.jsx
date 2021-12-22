@@ -1,10 +1,18 @@
 import React from "react";
-import { useEffect } from "react";
 
 function Tweet({tweet}) {
+    const style = {
+        backgroundColor: "white",
+    }
+
+    const nameStyle = {
+        fontWeight: "bold",
+    }
+
     return (
-        <div>
-            <span>{tweet}</span>
+        <div style={style}>
+            <div style={nameStyle}>{`@${tweet.username}`}</div>
+            {tweet.text}
         </div>
     )
 }
