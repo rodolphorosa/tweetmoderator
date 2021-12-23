@@ -1,18 +1,13 @@
 import React from "react";
+import "../styles/main.scss";
 
 function Tweet({tweet}) {
-    const style = {
-        backgroundColor: "white",
-    }
-
-    const nameStyle = {
-        fontWeight: "bold",
-    }
-
     return (
-        <div style={style}>
-            <div style={nameStyle}>{`@${tweet.username}`}</div>
-            {tweet.text}
+        <div className="tweet">
+            <div className="tweet-username">{`@${tweet.username}`}</div>
+            <div className="tweet-text">
+                {tweet.text}
+            </div>
         </div>
     )
 }

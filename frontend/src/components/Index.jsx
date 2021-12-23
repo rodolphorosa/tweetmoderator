@@ -1,29 +1,27 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { 
-    Button,
-    Form,
-    Col,
-    Row
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 
+import "../styles/main.scss";
 import Tweet from "./Tweet";
 import TweetList from "./TweetList";
 
-function Header({onSearch}) {
+function SearchBar({onSearch}) {
     const [hashtag, onChange] = useState(null);
+    
+    function handleOnClick() {
+        onSearch(hashtag)
+    }
 
     return (
         <form className="d-flex">
             <Form.Control
                 type="search"
-                placeholder="Hashtag"
-                className="me-2"
-                aria-label="Buscar"
+                className="search-input"
+                placeholder="Digite a hashtag..."
                 onChange={(event) => onChange(event.target.value)}
             />
-            <Button onClick={() => onSearch(hashtag)}>Buscar</Button>
+            <Button className="button" onClick={() => handleOnClick()}>Buscar</Button>
         </form>
     )
 }
@@ -35,18 +33,23 @@ function Index() {
 
     let element;
     if (tweet === undefined || tweet === null) {
+        const hashtagText = hashtag? `#${hashtag}` : "#G1"
         element = (
-            <div>
-                {`Envie seu comentário usando a hashtag #${hashtag}`}
+            <div className="no-tweet">
+                <span>Envie seu comentário usando a hashtag </span>
+                <span className="hashtag">{ hashtagText }</span>
             </div>
         )
     } else {
-        element = (<Tweet tweet={tweet}/>)
+        element = (
+            <div className="on-screen">
+                <Tweet tweet={tweet}/>
+            </div>
+        )
     }
 
     useEffect(() => {
         const interval = setInterval(() => {
-            console.log(tweetList);
             onSelect(tweetList.shift())
         }, 5000);
 
@@ -55,49 +58,73 @@ function Index() {
     }, [tweet, hashtag, tweetList])
 
     function handleOnApprove(tweet) {
+        console.log(tweet);
         const newTweetList = tweetList.concat([tweet])
         onApprove(newTweetList)
     }
 
     return (
         <Container>
-            <Row>
-                <Header onSearch={(hashtag) => onSearch(hashtag)} />
-            </Row>
-            <Row>
-                <Col>
-                    <Screen>
-                        {element}
-                    </Screen>
-                </Col>
-                <Col>
+            <ScreenWrapper>
+                <Screen className="screen">
+                    {element}
+                </Screen>
+            </ScreenWrapper>
+            <TweetSearchContainer>
+                <SearchBar 
+                    onSearch={(hashtag) => onSearch(hashtag)} 
+                />
+                <TweetListWrapper>
                     <TweetListContainer>
                         <TweetList 
                             hashtag={hashtag}
                             onApprove={(tweet) => handleOnApprove(tweet)}
                         />
                     </TweetListContainer>
-                </Col>
-            </Row>
+                </TweetListWrapper>
+            </TweetSearchContainer>
         </Container>
     )
 }
 
 const Container = styled.div`
-    font-family: Consolas;
-    background-color: #E7E9EB;
-    padding: 30px 10px;
+    display: inline;
+`
+
+const TweetSearchContainer = styled.div`
+    width: 50%;
+    float: right;
+    overflow-y: auto;
+    margin: 20px 0px;
+    padding: 0px 10px;
+`
+
+const ScreenWrapper = styled.div`
+    width: 50%;
+    margin: 20px 0px;
+    position: fixed;
 `
 
 const Screen = styled.div`
-    height: 480px;
+    width: 95%;
+    min-height: 480px;
+    margin: 0px auto;
+    padding: 20px 10px;
     background-color: black;
-    padding: 20px 15px;
+    background-repeat: no-repeat;
+    background-image: url("rede-globo-logo-4.png");
+    background-size: contain;
+    background-position: center;
+`
+
+const TweetListWrapper = styled.div`
+    margin-top: 10px;
 `
 
 const TweetListContainer = styled.div`
-    height: 480px;
-    overflow-y: scroll;
+    border: 2px solid;
+    border-radius: 0px;
+    border-color: cornflowerblue;
 `
 
 export default Index;

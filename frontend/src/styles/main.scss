@@ -1,0 +1,100 @@
+@import "variables";
+
+.button {
+    background-color: white;
+    border: 2px solid;
+    border-radius: 0px;
+    border-color: cornflowerblue;
+    color: cornflowerblue;
+    padding: 3px 5px;
+    font-size: small;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+    color: white;
+}
+
+.button:disabled {
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+.tweet-username {
+    font-weight: bold;
+    color: cornflowerblue;
+}
+
+.tweet-text {
+    font-size: smaller;
+}
+
+.tweet {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.tweet-list-item {
+    border-radius: 0px;
+}
+
+.tweet-list-item:hover {
+    background-color: #f8f8f8;
+}
+
+.on-screen {
+    min-width: 100%;
+    padding: 10px;
+    background-color: white;
+}
+
+.hashtag {
+    font-weight: bold;
+    color: cornflowerblue;
+    margin-left: 3px;
+}
+
+.no-tweet {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-height: 48px;
+    min-width: 100%;
+}
+
+.tweet-list-container {
+    border: 2px solid;
+    border-radius: 0px;
+    // border-color: cornflowerblue;
+}
+
+// Barra de pesquisa
+.search-input {
+    border: 2px solid;
+    border-radius: 0px;
+    border-color: cornflowerblue;
+    max-width: 40%;
+    margin-right: 5px;
+}
+
+.search-input::-webkit-input-placeholder {
+    color: cornflowerblue;
+}
+
+.search-input:focus {
+    border-color: black;
+    box-shadow: none;
+}
+
+// Telão
+.screen {
+    display: flex;
+}
+
+.screen div {
+    align-self: flex-end;
+}
