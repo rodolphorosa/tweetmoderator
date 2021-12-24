@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, ListGroup } from "react-bootstrap";
+import axios from "axios";
 
 import "../styles/main.scss";
 import Tweet from "./Tweet";
@@ -54,9 +55,21 @@ function TweetList({hashtag, onApprove}) {
 
     useEffect(() => {
         if (hashtag !== null) {
-            fetch(`/tweets?hashtag=${hashtag}`)
-            .then((response) => response.json())
-            .then((data) => setTweets(data.tweets))
+            //FIXME: verificar por que utilizar proxy não está funcionando com docker e remover o dns da url
+            const url = `http://localhost:3001/tweets?hashtag=${hashtag}`; 
+            const headers = {
+                "Access-Control-Allow-Origin": "*"
+            }
+            const options = {
+                url: url,
+                method: "GET",
+                headers: headers
+            }
+            axios(options)
+            .then((response) => {
+                setTweets(response.data.tweets)
+            })
+            .catch((error) => console.error(error))
         }
     }, [hashtag])
 
