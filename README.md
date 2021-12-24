@@ -17,8 +17,8 @@ Caso não possua token de acesso, entrar em contato.
 ## Configuração
 
 ### Requisitos
-Docker instalado na máquina.
-Token de acesso à API do Twitter. Caso não possua, entrar em contato.
+* Docker instalado na máquina.
+* Token de acesso à API do Twitter. Caso não possua, entrar em contato.
 
 ### Instruções
 
