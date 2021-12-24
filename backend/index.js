@@ -1,10 +1,42 @@
-const path = require("path");
+const cors = require("cors");
 const axios = require("axios");
 const express = require("express");
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT || 3001;
 const app = express();
+
+app.use(cors())
+
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`)
+})
+
+app.get("/", (request, response) => {
+    console.log("Tela inicial")
+    response.json({
+        text: "Bem vindo"
+    })
+})
+
+app.get("/tweets", (request, response) => {
+    console.log("Buscando tweets...")
+    const hashtag = request.query.hashtag
+    
+    requestTweetsByHashtag(hashtag)
+    .then((tweets) => {
+        response.json({
+            tweets: tweets
+        })
+    })
+    .catch((error) => {
+        console.log(error);
+        response.json({
+            tweets: [
+                {username: "server", text: "#server Digite alguma hashtag e clique em Buscar :)"}
+            ]
+        })
+    })
+})
 
 async function requestTweetsByHashtag(hashtag) {
     const token = "AAAAAAAAAAAAAAAAAAAAAEw2XQEAAAAANvEBABbvfZAPu2sQUVkSub0fpxU%3DIKjYoBbVsWpEIV7th6jJ5FsJM5MrAuon7A7vmnElhkMYuAHrcy"
@@ -39,32 +71,3 @@ async function requestTweetsByHashtag(hashtag) {
 
     return tweets
 }
-
-app.use(express.static(path.resolve(__dirname, '../frontend/build')))
-
-app.get("/tweets", (request, response) => {
-    const hashtag = request.query.hashtag
-    
-    requestTweetsByHashtag(hashtag)
-    .then((tweets) => {
-        response.json({
-            tweets: tweets
-        })
-    })
-    .catch((error) => {
-        console.log(error);
-        response.json({
-            tweets: [
-                {username: "server", text: "#server Digite alguma hashtag e clique em Buscar :)"}
-            ]
-        })
-    })
-})
-
-app.get("*", (request, response) => {
-    response.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"))
-})
-
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`)
-})
