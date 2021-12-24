@@ -55,8 +55,8 @@ function TweetList({hashtag, onApprove}) {
 
     useEffect(() => {
         if (hashtag !== null) {
-            //FIXME: verificar por que utilizar proxy não está funcionando com docker e remover o dns da url
-            const url = `http://localhost:3001/tweets?hashtag=${hashtag}`; 
+            //FIXME: Remover o DNS da url
+            const url = `http://localhost:3001/tweets?hashtag=${hashtag}`
             const headers = {
                 "Access-Control-Allow-Origin": "*"
             }

@@ -1,6 +1,9 @@
 const cors = require("cors");
 const axios = require("axios");
+const dotenv = require("dotenv");
 const express = require("express");
+
+dotenv.config({ path: "./backend.env" });
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,14 +15,12 @@ app.listen(PORT, () => {
 })
 
 app.get("/", (request, response) => {
-    console.log("Tela inicial")
     response.json({
         text: "Bem vindo"
     })
 })
 
 app.get("/tweets", (request, response) => {
-    console.log("Buscando tweets...")
     const hashtag = request.query.hashtag
     
     requestTweetsByHashtag(hashtag)
@@ -39,7 +40,7 @@ app.get("/tweets", (request, response) => {
 })
 
 async function requestTweetsByHashtag(hashtag) {
-    const token = "AAAAAAAAAAAAAAAAAAAAAEw2XQEAAAAANvEBABbvfZAPu2sQUVkSub0fpxU%3DIKjYoBbVsWpEIV7th6jJ5FsJM5MrAuon7A7vmnElhkMYuAHrcy"
+    const token = process.env.TOKEN
     const url = `https://api.twitter.com/2/tweets/search/recent?query=%23${hashtag}&expansions=author_id`
     const headers = {
         Authorization: `Bearer ${token}`
