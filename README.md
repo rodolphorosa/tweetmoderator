@@ -23,13 +23,19 @@ Token de acesso à API do Twitter. Caso não possua, entrar em contato.
 ### Instruções
 
 Faça o clone do repositório em um diretório qualquer.
-`git clone https://github.com/rodolphorosa/tweetmoderator.git`
+```
+git clone https://github.com/rodolphorosa/tweetmoderator.git
+```
 
 Entre na pasta tweetmoderador/backend, crie um arquivo backend.env e cole a linha abaixo, substituindo MEU_TOKEN pelo seu token de acesso à API do Twitter.
+```
 TOKEN = MEU_TOKEN
+```
 
 Na pasta raiz do projeto, tweetmoderator, execute o comando abaixo e aguarde até que a execução termine:
-```docker-compose up -d```
+```
+docker-compose up -d
+```
 
 É importante que as portas 3000 (frontend) e 3001 (backend) estejam disponíveis.
 
