@@ -58,7 +58,6 @@ function Index() {
     }, [tweet, hashtag, tweetList])
 
     function handleOnApprove(tweet) {
-        console.log(tweet);
         const newTweetList = tweetList.concat([tweet])
         onApprove(newTweetList)
     }
